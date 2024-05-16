@@ -14,14 +14,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.contrib import admin
 from django.urls import path
-from django.conf.urls import url, include
-from django.views.decorators.csrf import csrf_exempt
-
-from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    url('^places/', views.PlaceList, name='placeList'),
-    url('^placecreate/$', csrf_exempt(views.PlaceCreate), name='placeCreate'),
+    path('admin/', admin.site.urls),
+    path('', include('places.urls')),
 ]
 
+if settings.DEBUG is True:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
