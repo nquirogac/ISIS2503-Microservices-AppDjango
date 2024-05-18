@@ -11,8 +11,9 @@ import json
 def check_variable(data):
     r = requests.get(settings.PATH_VAR, headers={"Accept":"application/json"})
     variables = r.json()
+    print(data)
     for variable in variables:
-        print(data["variable"], variable["id"])
+        print(variable["id"])
         if data["variable"] == variable["id"]:
             return True
     return False
