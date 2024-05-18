@@ -12,7 +12,7 @@ def check_variable(data1):
     r = requests.get(settings.PATH_VAR, headers={"Accept":"application/json"})
     variables = r.json()
     for variable in variables:
-        if data1["variable"] == variable["id"]:
+        if 2 == variable["id"]:
             return True
     return False
 
