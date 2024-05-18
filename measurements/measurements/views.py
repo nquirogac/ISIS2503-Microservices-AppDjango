@@ -11,7 +11,7 @@ import json
 def check_variable(data):
     r = requests.get(settings.PATH_VAR, headers={"Accept":"application/json"})
     variables = r.json()
-    print(data)
+    print("data ",data,"dataV",data["variable"])
     for variable in variables:
         print(variable["id"])
         if data["variable"] == variable["id"]:
@@ -35,7 +35,9 @@ def MeasurementList(request):
 def MeasurementCreate(request):
     if request.method == 'POST':
         data = request.body.decode('utf-8')
+        print("data M", data)
         data_json = json.loads(data)
+        print("data_json M", data_json)
         if check_variable(data_json) == True and check_place(data_json) == True:
             measurement = Measurement()
             measurement.variable = data_json['variable']
