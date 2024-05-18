@@ -8,20 +8,11 @@ from django.conf import settings
 import requests
 import json
 
-def check_variable(data1):
+def check_variable(data):
     r = requests.get(settings.PATH_VAR, headers={"Accept":"application/json"})
     variables = r.json()
     for variable in variables:
-        if data1["variable"] == variable["id"]:
-            return True
-    return False
-
-def check_place(data):
-    r = requests.get(settings.PATH_PLACES, headers={"Accept":"application/json"})
-    places = r.json()
-    for place in places:
-        
-        if data["place"] == place["name"]:
+        if data["variable"] == variable["id"]:
             return True
     return False
 
@@ -34,7 +25,7 @@ def MeasurementCreate(request):
     if request.method == 'POST':
         data = request.body.decode('utf-8')
         data_json = json.loads(data)
-        if check_variable(json.loads(data)) == True and check_place(data_json) == True:
+        if check_variable(data_json) == True:
             measurement = Measurement()
             measurement.variable = data_json['variable']
             measurement.value = data_json['value']

@@ -18,15 +18,6 @@ services:
         paths:
           - /measurements
         strip_path: false
-  
-  - name: places_service
-    host: places_upstream
-    protocol: http
-    routes:
-      - name: places
-        paths:
-          - /places
-        strip_path: false
     
 upstreams:
   - name: variables_upstream
@@ -37,9 +28,4 @@ upstreams:
   - name: measurements_upstream
     targets:
       - target: 10.128.0.85:8080
-        weight: 100
-
-  - name: places_upstream
-    targets:
-      - target: 10.128.0.3:8080
         weight: 100
